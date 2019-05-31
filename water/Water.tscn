@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://water/water_thing.png" type="Texture" id=1]
+
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform sampler2D sprite_base: hint_albedo;
+
+void fragment() {
+	vec4 sprite_col = texture(TEXTURE, UV);
+	COLOR = sprite_col; //textureLod(noise_text, UV, 0.01);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[node name="Water" type="Sprite"]
+material = SubResource( 2 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 204, 117, 16, 16 )

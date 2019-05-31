@@ -1,0 +1,925 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://player/Player.gd" type="Script" id=1]
+[ext_resource path="res://0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
+[ext_resource path="res://HealthManager.tscn" type="PackedScene" id=3]
+[ext_resource path="res://player/HPDisplayManager.gd" type="Script" id=4]
+[ext_resource path="res://player/HpBar.tscn" type="PackedScene" id=5]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.54599
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics/FootL:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Graphics/FootR:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Graphics/SwordOnBack:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Graphics/BackPauldron:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -37.6665 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Graphics:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Graphics:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -5.755 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Graphics/FrontPauldron:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -142.415 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "roll"
+length = 0.6
+step = 0.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics/FootL:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Graphics/FootR:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Graphics/SwordOnBack:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Graphics/BackPauldron:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -37.6665 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Graphics:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 131.23, 245.683, 360.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Graphics/FrontPauldron:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -142.415 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Graphics:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -5.755 ), Vector2( 0, -4.16396 ), Vector2( 0, -8.451 ), Vector2( 0, -5.755 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "slash_down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics/BackPauldron:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -366.555 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Graphics/SwordOnBack:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 155.14 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand/SlashRightGfx:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Graphics:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Graphics:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -5.755 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Graphics/FrontPauldron:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -142.415 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand/SlashUpGfx:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand/SlashDownGfx:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/10/type = "method"
+tracks/10/path = NodePath(".")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "return_to_normal_state"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics/BackPauldron:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -128.183 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Graphics/SwordOnBack:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 155.14 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand/SlashRightGfx:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Graphics:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -5.755 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Graphics:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 13.2517 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Graphics/FrontPauldron:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -120.196 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand/SlashUpGfx:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand/SlashDownGfx:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/10/type = "method"
+tracks/10/path = NodePath(".")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "return_to_normal_state"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "slash_up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics/BackPauldron:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -245.915 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Graphics/SwordOnBack:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 155.14 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand/SlashRightGfx:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Graphics:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Graphics:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -5.755 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Graphics/FrontPauldron:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -298.141 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand/SlashDownGfx:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand/SlashUpGfx:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/10/type = "method"
+tracks/10/path = NodePath(".")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "return_to_normal_state"
+} ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics/FootL:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Graphics/FootR:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Graphics:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, -4.75546 ), Vector2( 0, -5.755 ), Vector2( 0, -4.75546 ), Vector2( 0, -5.755 ), Vector2( 0, -4.75546 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Graphics/BackPauldron:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -37.6665 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Graphics/SwordOnBack:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Graphics/BackPauldron/BackArm/SwordOnHand:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Graphics:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Graphics/FrontPauldron:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -142.415 ]
+}
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 16, 16 )
+
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 3
+script = ExtResource( 1 )
+
+[node name="Graphics" type="Node2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, -4.75546 )
+
+[node name="SwordOnBack" type="Sprite" parent="Graphics"]
+position = Vector2( -5.5111, -5.46611 )
+rotation = 2.44143
+scale = Vector2( 0.764884, 0.764884 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 163, 34, 10, 29 )
+
+[node name="BackPauldron" type="Sprite" parent="Graphics"]
+editor/display_folded = true
+position = Vector2( 5.43917, -2.5676 )
+rotation = -0.657404
+scale = Vector2( 0.673225, 0.673225 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 195, 241, 12, 10 )
+
+[node name="BackArm" type="Sprite" parent="Graphics/BackPauldron"]
+show_behind_parent = true
+position = Vector2( -2.05276, 5.20321 )
+rotation = 0.43359
+scale = Vector2( 1.48539, 1.48539 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 164, 229, 2, 7 )
+
+[node name="SwordOnHand" type="Sprite" parent="Graphics/BackPauldron/BackArm"]
+visible = false
+position = Vector2( -0.349377, 2.71735 )
+rotation = 2.7077
+scale = Vector2( 0.764884, 0.764884 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -8 )
+region_enabled = true
+region_rect = Rect2( 163, 34, 10, 29 )
+
+[node name="SlashRightGfx" type="Polygon2D" parent="Graphics/BackPauldron/BackArm/SwordOnHand"]
+visible = false
+modulate = Color( 0.949219, 0.931606, 0.878769, 1 )
+position = Vector2( -1.12088, -4.32415 )
+rotation = -0.894801
+scale = Vector2( 1.30739, 1.30739 )
+z_index = 1
+polygon = PoolVector2Array( 11.0853, -6.69396, -0.715837, 2.91779, 1.5884, 4.05986, 3.80649, 10.4695, -1.31013, 22.6157, 11.5761, 18.7813, 19.3536, 13.0296, 19.4325, 1.40656, 15.6261, -4.13137 )
+
+[node name="SlashUpGfx" type="Polygon2D" parent="Graphics/BackPauldron/BackArm/SwordOnHand"]
+visible = false
+modulate = Color( 0.949219, 0.931606, 0.878769, 1 )
+position = Vector2( -1.12088, -4.32415 )
+rotation = -0.894801
+scale = Vector2( 1.30739, 1.30739 )
+z_index = 1
+polygon = PoolVector2Array( 11.0853, -6.69396, -0.715837, 2.91779, 1.42615, 4.88396, 1.02886, 9.76027, -7.45793, 11.7251, 1.97323, 17.435, 10.4325, 17.9483, 15.485, 12.7805, 18.3396, 2.93632, 15.6261, -4.13137 )
+
+[node name="SlashDownGfx" type="Polygon2D" parent="Graphics/BackPauldron/BackArm/SwordOnHand"]
+modulate = Color( 0.949219, 0.931606, 0.878769, 1 )
+position = Vector2( 1.46759, -4.9372 )
+rotation = -0.585858
+scale = Vector2( 1.30739, 1.30739 )
+z_index = 1
+polygon = PoolVector2Array( 7.73519, -14.2164, -0.317143, -1.59237, 5.1832, -5.05234, 9.63758, -4.93729, 10.5031, -0.566299, 5.65857, 10.2164, 14.3105, 3.55453, 19.341, -1.34575, 26.2196, -14.1666, 24.4893, -20.5749, 19.2302, -25.313, 13.649, -23.1233 )
+
+[node name="Body" type="Sprite" parent="Graphics"]
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 163, 224, 10, 16 )
+
+[node name="Strap1" type="Sprite" parent="Graphics"]
+position = Vector2( 0.725616, 1.53758 )
+rotation = -0.824516
+scale = Vector2( 1.244, 1.21535 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 164, 236, 8, 1 )
+
+[node name="Strap2" type="Sprite" parent="Graphics"]
+position = Vector2( 0.153705, 0.911716 )
+rotation = -2.32981
+scale = Vector2( 1.42812, 1.22899 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 164, 236, 8, 1 )
+
+[node name="Head" type="Sprite" parent="Graphics"]
+position = Vector2( 1.0904, -6.68597 )
+scale = Vector2( 0.91923, 0.91923 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 98, 240, 13, 10 )
+
+[node name="FrontPauldron" type="Sprite" parent="Graphics"]
+editor/display_folded = true
+position = Vector2( -5.74923, -2.37146 )
+rotation = -2.48561
+scale = Vector2( 0.673225, 0.673225 )
+texture = ExtResource( 2 )
+flip_v = true
+region_enabled = true
+region_rect = Rect2( 195, 241, 12, 10 )
+
+[node name="FrontArm" type="Sprite" parent="Graphics/FrontPauldron"]
+show_behind_parent = true
+position = Vector2( -2.95341, -5.32329 )
+rotation = 2.50738
+scale = Vector2( 1.48539, 1.48539 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 164, 229, 2, 7 )
+
+[node name="FootL" type="Sprite" parent="Graphics"]
+position = Vector2( -3.5, 8 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 163, 238, 3, 2 )
+
+[node name="FootR" type="Sprite" parent="Graphics"]
+visible = false
+position = Vector2( 3.5, 8 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 163, 238, 3, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/idle = SubResource( 2 )
+anims/roll = SubResource( 3 )
+anims/slash_down = SubResource( 4 )
+anims/slash_right = SubResource( 5 )
+anims/slash_up = SubResource( 6 )
+anims/walk = SubResource( 7 )
+
+[node name="RightSlashBody" type="Area2D" parent="."]
+position = Vector2( 24, 0 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightSlashBody"]
+position = Vector2( -5, 0 )
+shape = SubResource( 8 )
+
+[node name="UpSlashBody" type="Area2D" parent="."]
+position = Vector2( 0, -24 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpSlashBody"]
+position = Vector2( 0, 5 )
+shape = SubResource( 9 )
+
+[node name="DownSlashBody" type="Area2D" parent="."]
+position = Vector2( 0, 24 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownSlashBody"]
+position = Vector2( 0, -5 )
+shape = SubResource( 10 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.3, 0.3 )
+
+[node name="HealthManager" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -5.84571 )
+
+[node name="HPDisplayManager" type="CanvasLayer" parent="."]
+editor/display_folded = true
+script = ExtResource( 4 )
+
+[node name="HpBar" parent="HPDisplayManager" instance=ExtResource( 5 )]
+position = Vector2( 24, 24 )
+
+[node name="HpBar2" parent="HPDisplayManager" instance=ExtResource( 5 )]
+position = Vector2( 52, 24 )
+
+[node name="HpBar3" parent="HPDisplayManager" instance=ExtResource( 5 )]
+position = Vector2( 80, 24 )
+
+[node name="HpBar4" parent="HPDisplayManager" instance=ExtResource( 5 )]
+position = Vector2( 108, 24 )
+[connection signal="hit" from="HealthManager" to="HPDisplayManager" method="hurt"]
