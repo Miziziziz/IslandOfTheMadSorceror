@@ -7,6 +7,8 @@ var blood_splatter = preload("res://BloodSplatter.tscn")
 
 signal dead
 signal hit
+func _ready():
+	hp = max_hp
 
 func hit(dir: Vector2):
 	emit_signal("hit")

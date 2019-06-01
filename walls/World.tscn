@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://water/noise256.png" type="Texture" id=1]
 [ext_resource path="res://0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://characters/Zombie.tscn" type="PackedScene" id=6]
 [ext_resource path="res://characters/FlameSprite.tscn" type="PackedScene" id=7]
+[ext_resource path="res://characters/Ogre.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -220,7 +221,7 @@ tile_data = PoolIntArray( 1048630, 0, 196609, 1048631, 0, 3, 1048632, 0, 3, 1048
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 5 )]
-position = Vector2( 635.052, 362.33 )
+position = Vector2( 580.917, 364.531 )
 
 [node name="Zombie" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 860.244, 395.171 )
@@ -232,4 +233,7 @@ position = Vector2( 879.3, 354.908 )
 position = Vector2( 928.169, 401.626 )
 
 [node name="FlameSprite" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 582.694, 378.332 )
+position = Vector2( 840.985, 409.132 )
+
+[node name="Ogre" parent="YSort" instance=ExtResource( 8 )]
+position = Vector2( 1016.62, 370.055 )

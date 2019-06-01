@@ -1,0 +1,147 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://characters/Bludgeon.gd" type="Script" id=1]
+[ext_resource path="res://0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 6.08276
+
+[node name="Bludgeon" type="Area2D"]
+position = Vector2( 0, 7 )
+script = ExtResource( 1 )
+
+[node name="ChainLink" type="CollisionShape2D" parent="."]
+editor/display_folded = true
+shape = SubResource( 2 )
+
+[node name="ChainLink" type="Sprite" parent="ChainLink"]
+position = Vector2( 0, -2 )
+rotation = 0.785398
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 251, 52, 3, 3 )
+
+[node name="ChainLink2" type="CollisionShape2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 3 )
+shape = SubResource( 2 )
+
+[node name="ChainLink2" type="Sprite" parent="ChainLink2"]
+position = Vector2( 0.242635, -1.87868 )
+rotation = -2.3562
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 251, 52, 3, 3 )
+
+[node name="ChainLink3" type="CollisionShape2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 6 )
+shape = SubResource( 2 )
+
+[node name="ChainLink" type="Sprite" parent="ChainLink3"]
+position = Vector2( 0.121321, -2 )
+rotation = 0.785398
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 251, 52, 3, 3 )
+
+[node name="ChainLink4" type="CollisionShape2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 9 )
+shape = SubResource( 2 )
+
+[node name="ChainLink2" type="Sprite" parent="ChainLink4"]
+position = Vector2( 0.242635, -1.87868 )
+rotation = -2.3562
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 251, 52, 3, 3 )
+
+[node name="ChainLink5" type="CollisionShape2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 12 )
+shape = SubResource( 2 )
+
+[node name="ChainLink" type="Sprite" parent="ChainLink5"]
+position = Vector2( 0.121321, -2 )
+rotation = 0.785398
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 251, 52, 3, 3 )
+
+[node name="ChainLink6" type="CollisionShape2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 15 )
+shape = SubResource( 2 )
+
+[node name="ChainLink2" type="Sprite" parent="ChainLink6"]
+position = Vector2( 0.242635, -1.87868 )
+rotation = -2.3562
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 251, 52, 3, 3 )
+
+[node name="ChainLink7" type="CollisionShape2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 18 )
+shape = SubResource( 2 )
+
+[node name="ChainLink" type="Sprite" parent="ChainLink7"]
+position = Vector2( 0.121321, -2 )
+rotation = 0.785398
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 251, 52, 3, 3 )
+
+[node name="ChainLink8" type="CollisionShape2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 21 )
+shape = SubResource( 2 )
+
+[node name="ChainLink2" type="Sprite" parent="ChainLink8"]
+position = Vector2( 0.242635, -1.87868 )
+rotation = -2.3562
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 251, 52, 3, 3 )
+
+[node name="ChainLink9" type="CollisionShape2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 24 )
+shape = SubResource( 2 )
+
+[node name="ChainLink" type="Sprite" parent="ChainLink9"]
+position = Vector2( 0.121321, -2 )
+rotation = 0.785398
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 251, 52, 3, 3 )
+
+[node name="ChainLink10" type="CollisionShape2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 27 )
+shape = SubResource( 2 )
+
+[node name="ChainLink2" type="Sprite" parent="ChainLink10"]
+position = Vector2( 0.242635, -1.87868 )
+rotation = -2.3562
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 251, 52, 3, 3 )
+
+[node name="BludgeonHead" type="Area2D" parent="."]
+position = Vector2( 0, 30 )
+
+[node name="Head" type="Sprite" parent="BludgeonHead"]
+position = Vector2( 0, 7 )
+rotation = 0.785398
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 243, 51, 12, 12 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BludgeonHead"]
+position = Vector2( 0, 8 )
+shape = SubResource( 1 )
