@@ -7,7 +7,7 @@ var player = null
 onready var anim_player = $AnimationPlayer
 
 var spot_player_range = 150
-var attack_range = 60
+var attack_range = 70
 
 var move_speed = 50
 var facing_right = true
@@ -48,6 +48,7 @@ func switch_to_idle_state():
 	anim_player.play("idle")
 
 func switch_to_chase_state():
+	get_tree().call_group("boss_ui", "init", "Ogre")
 	cur_state = States.CHASING
 	anim_player.play("walk")
 
@@ -61,7 +62,7 @@ func process_idle_state():
 
 var attack_timer = 0
 var attack_time = 2.0
-var rest_time = 2.0
+var rest_time = 1.0
 
 func process_attack_state():
 	if !player_is_in_attack_range() and (anim_player.current_animation != "attack" or !anim_player.is_playing()):
@@ -126,9 +127,11 @@ func flip():
 
 func hit(dir):
 	$HealthManager.hit(dir)
+	get_tree().call_group("boss_ui", "update_hp", 1.0 * $HealthManager.hp / $HealthManager.max_hp)
 
 func die():
 	cur_state = States.DEAD
 	$CollisionShape2D.disabled = true
 	anim_player.play("death")
 	final_rest_pos = bludgeon.get_node("BludgeonHead").global_position
+	get_tree().call_group("boss_ui", "end_fight")

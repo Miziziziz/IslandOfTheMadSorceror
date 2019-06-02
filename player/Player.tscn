@@ -1,10 +1,12 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
 [ext_resource path="res://HealthManager.tscn" type="PackedScene" id=3]
 [ext_resource path="res://player/HPDisplayManager.gd" type="Script" id=4]
 [ext_resource path="res://player/HpBar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://items/KeyGraphics.tscn" type="PackedScene" id=6]
+[ext_resource path="res://player/BossHpOverlay.gd" type="Script" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.54599
@@ -907,19 +909,77 @@ zoom = Vector2( 0.3, 0.3 )
 [node name="HealthManager" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, -5.84571 )
 
-[node name="HPDisplayManager" type="CanvasLayer" parent="."]
+[node name="PlayerUI" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="PlayerUI"]
+margin_left = 9.0
+margin_top = 4.0
+margin_right = 123.0
+margin_bottom = 44.0
+
+[node name="Panel2" type="Panel" parent="PlayerUI"]
+margin_left = 128.0
+margin_top = 4.0
+margin_right = 156.0
+margin_bottom = 44.0
+
+[node name="HpDisplay" type="Control" parent="PlayerUI"]
 editor/display_folded = true
 script = ExtResource( 4 )
 
-[node name="HpBar" parent="HPDisplayManager" instance=ExtResource( 5 )]
+[node name="HpBar" parent="PlayerUI/HpDisplay" instance=ExtResource( 5 )]
 position = Vector2( 24, 24 )
 
-[node name="HpBar2" parent="HPDisplayManager" instance=ExtResource( 5 )]
+[node name="HpBar2" parent="PlayerUI/HpDisplay" instance=ExtResource( 5 )]
 position = Vector2( 52, 24 )
 
-[node name="HpBar3" parent="HPDisplayManager" instance=ExtResource( 5 )]
+[node name="HpBar3" parent="PlayerUI/HpDisplay" instance=ExtResource( 5 )]
 position = Vector2( 80, 24 )
 
-[node name="HpBar4" parent="HPDisplayManager" instance=ExtResource( 5 )]
+[node name="HpBar4" parent="PlayerUI/HpDisplay" instance=ExtResource( 5 )]
 position = Vector2( 108, 24 )
-[connection signal="hit" from="HealthManager" to="HPDisplayManager" method="hurt"]
+
+[node name="KeyGraphics" parent="PlayerUI" instance=ExtResource( 6 )]
+visible = false
+position = Vector2( 139.48, 21.3338 )
+scale = Vector2( 4, 4 )
+
+[node name="BossHpOverlay" type="CanvasLayer" parent="." groups=[
+"boss_ui",
+]]
+editor/display_folded = true
+script = ExtResource( 7 )
+
+[node name="Panel" type="Panel" parent="BossHpOverlay"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -202.531
+margin_top = -65.6248
+margin_right = 197.469
+margin_bottom = -25.6248
+
+[node name="ColorRect" type="ColorRect" parent="BossHpOverlay/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+color = Color( 0.376471, 0.0941176, 0.0941176, 1 )
+
+[node name="Label" type="Label" parent="BossHpOverlay/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -7.0
+margin_right = 40.0
+margin_bottom = 7.0
+text = "Ogre"
+align = 1
+[connection signal="heal" from="HealthManager" to="PlayerUI/HpDisplay" method="heal"]
+[connection signal="hit" from="HealthManager" to="PlayerUI/HpDisplay" method="hurt"]

@@ -16,6 +16,8 @@ var roll_rest_time = 0.1
 var time_attacked = -2.0
 var attack_rest_time = 0.1
 
+var has_key = false
+
 onready var anim_player = $AnimationPlayer
 var facing_right = true
 
@@ -24,7 +26,7 @@ func _ready():
 	for n in get_tree().get_nodes_in_group("need_player_ref"):
 		n.player = self
 
-func _process(delta):
+func _process(_delta):
 	var cur_time = OS.get_ticks_msec() / 1000.0
 	if cur_attack_dir != Directions.NONE and cur_time - time_attacked > attack_rest_time:
 			cur_state = States.ATTACKING
@@ -34,7 +36,7 @@ func _process(delta):
 		get_tree().quit()
 	update_attack_input()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if cur_state == States.NORMAL:
 		if Input.is_action_just_pressed("roll") and OS.get_ticks_msec() / 1000.0 - time_stopped_rolling > roll_rest_time:
 			cur_state = States.ROLLING
@@ -137,3 +139,14 @@ func hit(dir):
 	if cur_state == States.ROLLING:
 		return
 	$HealthManager.hit(dir)
+
+func heal():
+	return $HealthManager.heal()
+
+func give_key():
+	has_key = true
+	$PlayerUI/KeyGraphics.show()
+
+func remove_key():
+	has_key = false
+	$PlayerUI/KeyGraphics.hide()

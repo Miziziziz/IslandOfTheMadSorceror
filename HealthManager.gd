@@ -7,6 +7,8 @@ var blood_splatter = preload("res://BloodSplatter.tscn")
 
 signal dead
 signal hit
+signal heal
+
 func _ready():
 	hp = max_hp
 
@@ -21,3 +23,10 @@ func hit(dir: Vector2):
 	hp -= 1
 	if hp <= 0:
 		emit_signal("dead")
+
+func heal():
+	if hp >= max_hp:
+		return false
+	hp += 1
+	emit_signal("heal")
+	return true

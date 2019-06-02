@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://0x72_16x16DungeonTileset.v4.png" type="Texture" id=1]
+
+[node name="Hat" type="Sprite"]
+modulate = Color( 0.614392, 0.516205, 0.664062, 1 )
+position = Vector2( 2, -6 )
+texture = ExtResource( 1 )
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 143, 224, 16, 5 )
