@@ -5,12 +5,17 @@ var cur_state = States.IDLE
 var player = null
 
 onready var anim_player = $AnimationPlayer
+onready var growl_player = $GrowlPlayer
+onready var attack_warn_player = $AttackWarnPlayer
+onready var death_player = $DeathPlayer
 
 var spot_player_range = 150
 var attack_range = 70
 
 var move_speed = 50
 var facing_right = true
+
+var key = preload("res://items/Key.tscn")
 
 onready var bludgeon = $Graphics/MainArmBase/ArmAnimPivot/ArmBack/Bludgeon
 onready var target = $Graphics/MainArmBase/TargetBase/Target
@@ -47,8 +52,12 @@ func switch_to_idle_state():
 	cur_state = States.IDLE
 	anim_player.play("idle")
 
+var first_spot = true
 func switch_to_chase_state():
-	get_tree().call_group("boss_ui", "init", "Ogre")
+	if first_spot:
+		growl_player.play()
+		get_tree().call_group("boss_ui", "init", "Ogre")
+		first_spot = false
 	cur_state = States.CHASING
 	anim_player.play("walk")
 
@@ -62,7 +71,8 @@ func process_idle_state():
 
 var attack_timer = 0
 var attack_time = 2.0
-var rest_time = 1.0
+var rest_time = 2.0
+var growled_this_iter = false
 
 func process_attack_state():
 	if !player_is_in_attack_range() and (anim_player.current_animation != "attack" or !anim_player.is_playing()):
@@ -73,12 +83,16 @@ func process_attack_state():
 	if attack_timer < attack_time:
 		if anim_player.current_animation != "attack":
 			anim_player.play("attack")
+			growled_this_iter = false
 		set_bludgeon_attack_pos()
 		attack()
 		move_towards_player()
 	elif attack_timer > attack_time and attack_timer < attack_time + rest_time:
 		if anim_player.current_animation != "idle":
 			anim_player.play("idle")
+		if attack_timer > attack_time + rest_time - 0.5 and not growled_this_iter:
+			growled_this_iter = true
+			attack_warn_player.play()
 		set_bludgeon_rest_pos()
 	elif attack_timer > attack_time + rest_time:
 		attack_timer = 0
@@ -135,3 +149,9 @@ func die():
 	anim_player.play("death")
 	final_rest_pos = bludgeon.get_node("BludgeonHead").global_position
 	get_tree().call_group("boss_ui", "end_fight")
+	
+	var key_inst = key.instance()
+	get_tree().get_root().add_child(key_inst)
+	key_inst.global_position = global_position
+	death_player.play()
+	

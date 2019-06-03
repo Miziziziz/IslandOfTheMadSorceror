@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/b00052.wav-1bd1d422fbe63d5876aae2aced02a3e0.sample"
+
+[deps]
+
+source_file="res://audio/ogre/b00052.wav"
+dest_files=[ "res://.import/b00052.wav-1bd1d422fbe63d5876aae2aced02a3e0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

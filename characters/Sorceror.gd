@@ -17,6 +17,7 @@ var facing_right = false
 var hat = preload("res://characters/Hat.tscn")
 var darkness_spell = preload("res://characters/DarknessSpell.tscn")
 var fire_spell = preload("res://characters/FireSpell.tscn")
+var key = preload("res://items/Key.tscn")
 
 var start_phase_logic = {
 	"idle_time": 1.0,
@@ -54,7 +55,7 @@ func _process(delta):
 		
 
 func switch_to_start_phase():
-	get_tree().call_group("boss_ui", "init", "Sorceror")
+	get_tree().call_group("boss_ui", "init", "Madduk the Mad Sorceror")
 	combat_state_time = 0
 	combat_state_pattern_ind = 0
 	cur_main_state = MainStates.START_PHASE
@@ -75,6 +76,10 @@ func switch_to_dead_state():
 	anim_player.play("dead")
 	$CollisionShape2D.disabled = true
 	get_tree().call_group("boss_ui", "end_fight")
+	
+	var key_inst = key.instance()
+	get_tree().get_root().add_child(key_inst)
+	key_inst.global_position = global_position
 
 func process_start_phase():
 	flip_if_needed(player.global_position - global_position)

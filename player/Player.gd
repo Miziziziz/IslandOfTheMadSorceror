@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-enum States {NORMAL, ATTACKING, ROLLING}
+enum States {NORMAL, ATTACKING, ROLLING, DEAD, CUTSCENE}
 enum Directions {UP, RIGHT, DOWN, LEFT, NONE}
 
 var cur_state = States.NORMAL
@@ -19,21 +19,31 @@ var attack_rest_time = 0.1
 var has_key = false
 
 onready var anim_player = $AnimationPlayer
+onready var slash_player = $SlashPlayer
 var facing_right = true
 
 func _ready():
+	$HealthManager.connect("dead", self, "die")
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	for n in get_tree().get_nodes_in_group("need_player_ref"):
 		n.player = self
 
 func _process(_delta):
+	if Input.is_action_just_pressed("exit"):
+		get_tree().quit()
+	if cur_state == States.DEAD:
+		if Input.is_action_just_pressed("restart"):
+			restart()
+		return
+	if cur_state == States.CUTSCENE:
+		return
+	
 	var cur_time = OS.get_ticks_msec() / 1000.0
 	if cur_attack_dir != Directions.NONE and cur_time - time_attacked > attack_rest_time:
 			cur_state = States.ATTACKING
 			attack()
 			time_attacked = cur_time
-	if Input.is_action_just_pressed("exit"):
-		get_tree().quit()
+
 	update_attack_input()
 
 func _physics_process(_delta):
@@ -120,9 +130,14 @@ func attack():
 	else:
 		bodies = $UpSlashBody.get_overlapping_bodies()
 		anim_player.play("slash_up")
+	var hit_something = false
 	for body in bodies:
 		if body.has_method("hit") and body != self:
+			hit_something = true
 			body.hit(body.global_position - global_position)
+	if !hit_something:
+		slash_player.stop()
+		slash_player.play()
 
 func attempt_to_play_anim(anim):
 	if anim_player.current_animation != anim:
@@ -150,3 +165,17 @@ func give_key():
 func remove_key():
 	has_key = false
 	$PlayerUI/KeyGraphics.hide()
+
+func die():
+	if cur_state == States.DEAD:
+		return
+	$PlayerUI/YouDiedDisplay.show()
+	cur_state = States.DEAD
+	anim_player.play("die")
+	var bs = $Graphics/BloodSplatter
+	bs.show()
+	bs.one_shot = false
+	bs.emitting = true
+
+func restart():
+	get_tree().reload_current_scene()

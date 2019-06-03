@@ -13,6 +13,7 @@ func _ready():
 	hp = max_hp
 
 func hit(dir: Vector2):
+	
 	emit_signal("hit")
 	var bs = blood_splatter.instance()
 	get_tree().get_root().add_child(bs)

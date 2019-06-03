@@ -1,9 +1,26 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://items/Key.gd" type="Script" id=1]
 [ext_resource path="res://items/KeyGraphics.tscn" type="PackedScene" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="Animation" id=2]
+resource_name = "base"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("KeyGraphics:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -2 ) ]
+}
 
 [node name="Key" type="Area2D"]
 collision_layer = 0
@@ -14,3 +31,7 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="KeyGraphics" parent="." instance=ExtResource( 2 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "base"
+anims/base = SubResource( 2 )

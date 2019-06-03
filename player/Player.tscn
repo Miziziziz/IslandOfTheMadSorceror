@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
@@ -7,12 +7,60 @@
 [ext_resource path="res://player/HpBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://items/KeyGraphics.tscn" type="PackedScene" id=6]
 [ext_resource path="res://player/BossHpOverlay.gd" type="Script" id=7]
+[ext_resource path="res://audio/player/sword sound.wav" type="AudioStream" id=8]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="ParticlesMaterial" id=1]
+flag_disable_z = true
+spread = 15.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.8
+angular_velocity = 2.24208e-44
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.0
+color = Color( 0.6, 0.0627451, 0.0627451, 1 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 50.0
+angular_velocity = 6.5861e-44
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color = Color( 0.6, 0.0627451, 0.0627451, 1 )
+
+[sub_resource type="CircleShape2D" id=3]
 radius = 4.54599
 
-[sub_resource type="Animation" id=2]
-resource_name = "idle"
+[sub_resource type="Animation" id=4]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -4.75546 ), Vector2( 0.315559, 0.609019 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Graphics:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -99.9103 ]
+}
+
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics/FootL:visible")
 tracks/0/interp = 1
@@ -110,8 +158,7 @@ tracks/7/keys = {
 "values": [ -142.415 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "roll"
+[sub_resource type="Animation" id=6]
 length = 0.6
 step = 0.0
 tracks/0/type = "value"
@@ -211,8 +258,7 @@ tracks/7/keys = {
 "values": [ Vector2( 0, -5.755 ), Vector2( 0, -4.16396 ), Vector2( 0, -8.451 ), Vector2( 0, -5.755 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "slash_down"
+[sub_resource type="Animation" id=7]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics/BackPauldron:rotation_degrees")
@@ -349,7 +395,7 @@ tracks/10/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=8]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics/BackPauldron:rotation_degrees")
@@ -486,8 +532,7 @@ tracks/10/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "slash_up"
+[sub_resource type="Animation" id=9]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics/BackPauldron:rotation_degrees")
@@ -624,7 +669,7 @@ tracks/10/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=10]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -724,13 +769,13 @@ tracks/7/keys = {
 "values": [ -142.415 ]
 }
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 16, 16 )
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 16, 16 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 16, 16 )
 
 [node name="Player" type="KinematicBody2D"]
@@ -863,17 +908,37 @@ texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 163, 238, 3, 2 )
 
+[node name="BloodSplatter" type="Particles2D" parent="Graphics"]
+position = Vector2( 0.654242, -0.206035 )
+rotation = 1.74376
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+local_coords = false
+process_material = SubResource( 1 )
+
+[node name="Particles2D" type="Particles2D" parent="Graphics/BloodSplatter"]
+emitting = false
+amount = 16
+lifetime = 0.6
+one_shot = true
+local_coords = false
+process_material = SubResource( 2 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/idle = SubResource( 2 )
-anims/roll = SubResource( 3 )
-anims/slash_down = SubResource( 4 )
-anims/slash_right = SubResource( 5 )
-anims/slash_up = SubResource( 6 )
-anims/walk = SubResource( 7 )
+anims/die = SubResource( 4 )
+anims/idle = SubResource( 5 )
+anims/roll = SubResource( 6 )
+anims/slash_down = SubResource( 7 )
+anims/slash_right = SubResource( 8 )
+anims/slash_up = SubResource( 9 )
+anims/walk = SubResource( 10 )
 
 [node name="RightSlashBody" type="Area2D" parent="."]
 position = Vector2( 24, 0 )
@@ -882,7 +947,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightSlashBody"]
 position = Vector2( -5, 0 )
-shape = SubResource( 8 )
+shape = SubResource( 11 )
 
 [node name="UpSlashBody" type="Area2D" parent="."]
 position = Vector2( 0, -24 )
@@ -891,7 +956,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpSlashBody"]
 position = Vector2( 0, 5 )
-shape = SubResource( 9 )
+shape = SubResource( 12 )
 
 [node name="DownSlashBody" type="Area2D" parent="."]
 position = Vector2( 0, 24 )
@@ -900,7 +965,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownSlashBody"]
 position = Vector2( 0, -5 )
-shape = SubResource( 10 )
+shape = SubResource( 13 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -908,8 +973,10 @@ zoom = Vector2( 0.3, 0.3 )
 
 [node name="HealthManager" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, -5.84571 )
+max_hp = 4
 
 [node name="PlayerUI" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="Panel" type="Panel" parent="PlayerUI"]
 margin_left = 9.0
@@ -943,6 +1010,23 @@ position = Vector2( 108, 24 )
 visible = false
 position = Vector2( 139.48, 21.3338 )
 scale = Vector2( 4, 4 )
+
+[node name="YouDiedDisplay" type="Panel" parent="PlayerUI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -69.1094
+margin_top = -21.0
+margin_right = 120.891
+
+[node name="Label" type="Label" parent="PlayerUI/YouDiedDisplay"]
+margin_left = 2.39496
+margin_top = 2.99365
+margin_right = 186.395
+margin_bottom = 16.9937
+text = "You Died, Press 'R' to Restart"
 
 [node name="BossHpOverlay" type="CanvasLayer" parent="." groups=[
 "boss_ui",
@@ -981,5 +1065,8 @@ margin_right = 40.0
 margin_bottom = 7.0
 text = "Ogre"
 align = 1
+
+[node name="SlashPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 [connection signal="heal" from="HealthManager" to="PlayerUI/HpDisplay" method="heal"]
 [connection signal="hit" from="HealthManager" to="PlayerUI/HpDisplay" method="hurt"]
