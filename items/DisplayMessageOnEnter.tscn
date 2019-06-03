@@ -53,25 +53,23 @@ anims/fade_in = SubResource( 2 )
 [node name="Control" type="Control" parent="CanvasLayer"]
 visible = false
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
 margin_left = -20.0
-margin_top = -234.0
+margin_top = 110.0
 margin_right = 20.0
-margin_bottom = -194.0
+margin_bottom = 150.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Control"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -95.0
+margin_left = -223.0
 margin_top = -3.0
-margin_right = 59.0
+margin_right = 270.0
 margin_bottom = 47.0
 text = "asdasdasdasdasdasdasd
-as"
+asaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaw"
 align = 1
 valign = 1
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
@@ -8,6 +8,11 @@
 [ext_resource path="res://items/KeyGraphics.tscn" type="PackedScene" id=6]
 [ext_resource path="res://player/BossHpOverlay.gd" type="Script" id=7]
 [ext_resource path="res://audio/player/sword sound.wav" type="AudioStream" id=8]
+[ext_resource path="res://audio/player/3grunt1.wav" type="AudioStream" id=9]
+[ext_resource path="res://audio/player/3grunt4.wav" type="AudioStream" id=10]
+[ext_resource path="res://audio/player/3yell2.wav" type="AudioStream" id=11]
+[ext_resource path="res://audio/heal.wav" type="AudioStream" id=12]
+[ext_resource path="res://audio/link.wav" type="AudioStream" id=13]
 
 [sub_resource type="ParticlesMaterial" id=1]
 flag_disable_z = true
@@ -1031,7 +1036,6 @@ text = "You Died, Press 'R' to Restart"
 [node name="BossHpOverlay" type="CanvasLayer" parent="." groups=[
 "boss_ui",
 ]]
-editor/display_folded = true
 script = ExtResource( 7 )
 
 [node name="Panel" type="Panel" parent="BossHpOverlay"]
@@ -1059,14 +1063,29 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -40.0
-margin_top = -7.0
-margin_right = 40.0
-margin_bottom = 7.0
-text = "Ogre"
+margin_left = -110.0
+margin_top = -9.11926
+margin_right = 110.0
+margin_bottom = 6.88074
+text = "ASLDKJASLDKJALSKDJALSKDJLASKJD"
 align = 1
 
 [node name="SlashPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+
+[node name="HurtPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="RollPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+
+[node name="DeathPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+
+[node name="HealPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+
+[node name="KeyPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
 [connection signal="heal" from="HealthManager" to="PlayerUI/HpDisplay" method="heal"]
 [connection signal="hit" from="HealthManager" to="PlayerUI/HpDisplay" method="hurt"]

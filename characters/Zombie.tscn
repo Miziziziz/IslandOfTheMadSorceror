@@ -1,14 +1,17 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://characters/Zombie.gd" type="Script" id=1]
 [ext_resource path="res://0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
 [ext_resource path="res://characters/Flame.tscn" type="PackedScene" id=3]
 [ext_resource path="res://HealthManager.tscn" type="PackedScene" id=4]
+[ext_resource path="res://audio/zombie/monster-12.wav" type="AudioStream" id=5]
+[ext_resource path="res://audio/zombie/Monster-7.wav" type="AudioStream" id=6]
+[ext_resource path="res://audio/zombie/Monster-2.wav" type="AudioStream" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.5
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 resource_name = "attack"
 length = 0.4
 tracks/0/type = "value"
@@ -85,8 +88,22 @@ tracks/5/keys = {
 "method": "perform_attack"
 } ]
 }
+tracks/6/type = "method"
+tracks/6/path = NodePath("AttackPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 resource_name = "death"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics/FootR:visible")
@@ -173,7 +190,7 @@ tracks/6/keys = {
 "values": [ -156.016 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics/FootR:visible")
@@ -236,8 +253,7 @@ tracks/4/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "walk"
+[sub_resource type="Animation" id=5]
 length = 0.5
 loop = true
 tracks/0/type = "value"
@@ -304,7 +320,6 @@ tracks/4/keys = {
 [node name="Zombie" type="KinematicBody2D" groups=[
 "need_player_ref",
 ]]
-editor/display_folded = true
 collision_layer = 3
 script = ExtResource( 1 )
 
@@ -318,11 +333,11 @@ position = Vector2( 0, -4.5 )
 [node name="ArmBack" type="Node2D" parent="Graphics"]
 editor/display_folded = true
 position = Vector2( 3.2638, -3.81934 )
+rotation = -0.958517
 
 [node name="ArmBack" type="Sprite" parent="Graphics/ArmBack"]
 position = Vector2( 2.98771, 3.2835 )
 rotation = 2.37707
-scale = Vector2( 1, 1 )
 texture = ExtResource( 2 )
 flip_h = true
 region_enabled = true
@@ -359,21 +374,33 @@ region_rect = Rect2( 3, 150, 9, 7 )
 [node name="ArmFront" type="Node2D" parent="Graphics"]
 editor/display_folded = true
 position = Vector2( -1.73606, -2.84714 )
+rotation = -0.958517
 
 [node name="ArmFront" type="Sprite" parent="Graphics/ArmFront"]
 position = Vector2( 2.2719, 2.3113 )
 rotation = 2.37707
-scale = Vector2( 1, 1 )
 texture = ExtResource( 2 )
 flip_h = true
 region_enabled = true
 region_rect = Rect2( 67, 129, 3, 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack = SubResource( 6 )
-anims/death = SubResource( 7 )
-anims/idle = SubResource( 5 )
-anims/walk = SubResource( 4 )
+anims/attack = SubResource( 2 )
+anims/death = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/walk = SubResource( 5 )
 
 [node name="HealthManager" parent="." instance=ExtResource( 4 )]
 position = Vector2( 0, -6.37186 )
+
+[node name="DeathPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+max_distance = 500.0
+
+[node name="AttackPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+max_distance = 500.0
+
+[node name="SpotPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+max_distance = 500.0

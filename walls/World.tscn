@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://water/noise256.png" type="Texture" id=1]
 [ext_resource path="res://0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://items/Chest.tscn" type="PackedScene" id=12]
 [ext_resource path="res://items/DisplayMessageOnEnter.tscn" type="PackedScene" id=13]
 [ext_resource path="res://audio/short wind sound.wav" type="AudioStream" id=14]
+[ext_resource path="res://audio/music/Desert_Caravan.ogg" type="AudioStream" id=15]
+[ext_resource path="res://walls/MusicPlayer.gd" type="Script" id=16]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -214,6 +216,9 @@ shader_param/noise_txt = ExtResource( 1 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 4.06396, 6 )
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 17, 3 )
+
 [node name="World" type="Node2D"]
 
 [node name="WaterTileMap" type="TileMap" parent="."]
@@ -237,7 +242,7 @@ tile_data = PoolIntArray( -4784057, 16, 0, -4784056, 16, 0, -4784055, 16, 3, -47
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 5 )]
-position = Vector2( 858, -232 )
+position = Vector2( 630, 374 )
 
 [node name="Zombie" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 622, 162.594 )
@@ -353,10 +358,12 @@ position = Vector2( 1152, -754 )
 [node name="Door2" parent="YSort" instance=ExtResource( 10 )]
 position = Vector2( 896, -332 )
 is_open = false
+dont_close = true
 
 [node name="Door3" parent="YSort" instance=ExtResource( 10 )]
 position = Vector2( 1151, -976 )
 is_open = false
+dont_close = true
 
 [node name="Pillar" parent="YSort" instance=ExtResource( 11 )]
 
@@ -448,16 +455,45 @@ position = Vector2( 638.952, 370 )
 message = "WASD to move
 Arrow Keys to attack
 Space to roll
-Esc to exit"
+Esc to exit
+Health is shown top left
+Keys are shown top left
+
+
+-- The Chalice of Eternity --
+You have journeyed to the Isle of Exquisite Damnation seeking the Chalice of Eternity.
+However, it is guarded by Madduk the Mad Sorceror and his minions. 
+'Ware Traveller!
+"
 
 [node name="DisplayMessageOnEnter2" parent="YSort" instance=ExtResource( 13 )]
 position = Vector2( 1153, -1154 )
 message = "You have found the Chalice of Eternity.
-This adventure winds to a close.
+This adventure has come to a successful close.
 
-press Esc to exit"
+
+press Esc to exit
+
+Created by Miziziz
+Art by 0x72"
 trigger_end = true
 
 [node name="WindStartSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
 autoplay = true
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+autoplay = true
+script = ExtResource( 16 )
+
+[node name="BossTrigger" type="Area2D" parent="MusicPlayer"]
+editor/display_folded = true
+position = Vector2( 1152, -761 )
+collision_layer = 0
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MusicPlayer/BossTrigger"]
+shape = SubResource( 5 )
+[connection signal="dead" from="YSort/Sorceror" to="MusicPlayer" method="play_win_track"]
+[connection signal="body_entered" from="MusicPlayer/BossTrigger" to="MusicPlayer" method="play_boss_track"]

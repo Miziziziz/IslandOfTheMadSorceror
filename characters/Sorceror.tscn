@@ -1,13 +1,18 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://characters/Sorceror.gd" type="Script" id=1]
 [ext_resource path="res://0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
 [ext_resource path="res://characters/Hat.tscn" type="PackedScene" id=3]
 [ext_resource path="res://HealthManager.tscn" type="PackedScene" id=4]
+[ext_resource path="res://audio/sorceror/high_pitch_scream_gverb.wav" type="AudioStream" id=5]
+[ext_resource path="res://audio/sorceror/ghostbreath.wav" type="AudioStream" id=6]
+[ext_resource path="res://audio/sorceror/fire-1.wav" type="AudioStream" id=7]
+[ext_resource path="res://audio/sorceror/witch_cackle-1.wav" type="AudioStream" id=8]
+[ext_resource path="res://audio/sorceror/1yell5.wav" type="AudioStream" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=12]
 resource_name = "base"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics/Arm:rotation_degrees")
@@ -58,7 +63,7 @@ tracks/3/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=13]
 resource_name = "cast_darkness"
 length = 0.8
 tracks/0/type = "value"
@@ -112,7 +117,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=14]
 resource_name = "cast_darkness_fast"
 length = 0.4
 loop = true
@@ -221,7 +226,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=6]
 resource_name = "cast_fire_fast"
 length = 0.4
 loop = true
@@ -317,8 +322,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "channel_fire"
+[sub_resource type="Animation" id=8]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -358,7 +362,7 @@ tracks/2/keys = {
 "values": [ 15.0 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=9]
 resource_name = "dead"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics/Arm:rotation_degrees")
@@ -469,8 +473,7 @@ tracks/8/keys = {
 "values": [  ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "idle"
+[sub_resource type="Animation" id=10]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Graphics/Arm:rotation_degrees")
@@ -509,8 +512,7 @@ tracks/2/keys = {
 "values": [ -30.0, -15.0, -30.0, -15.0, -30.0, -15.0, -30.0 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "rage"
+[sub_resource type="Animation" id=11]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -576,7 +578,7 @@ editor/display_folded = true
 
 [node name="Arm" type="Node2D" parent="Graphics"]
 position = Vector2( -4, -2 )
-rotation = 1.309
+rotation = 2.35619
 
 [node name="Arm" type="Sprite" parent="Graphics/Arm"]
 position = Vector2( 1.5, 3 )
@@ -594,7 +596,7 @@ region_rect = Rect2( 92, 144, 2, 10 )
 
 [node name="Hand" type="Node2D" parent="Graphics/Arm/Arm"]
 position = Vector2( -1.5, 5 )
-rotation = 0.785398
+rotation = -0.261799
 
 [node name="Staff" type="Sprite" parent="Graphics/Arm/Arm/Hand"]
 editor/display_folded = true
@@ -627,7 +629,7 @@ region_rect = Rect2( 82, 144, 13, 16 )
 
 [node name="Head" type="Node2D" parent="Graphics"]
 position = Vector2( -2, -3 )
-rotation = -0.523599
+rotation = 0.523599
 
 [node name="Head2" type="Sprite" parent="Graphics/Head"]
 position = Vector2( 0, -6 )
@@ -645,19 +647,37 @@ region_rect = Rect2( 22, 155, 4, 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/base = SubResource( 8 )
-anims/cast_darkness = SubResource( 6 )
-anims/cast_darkness_fast = SubResource( 9 )
+anims/base = SubResource( 12 )
+anims/cast_darkness = SubResource( 13 )
+anims/cast_darkness_fast = SubResource( 14 )
 anims/cast_fire = SubResource( 5 )
-anims/cast_fire_fast = SubResource( 10 )
+anims/cast_fire_fast = SubResource( 6 )
 anims/channel_darkness = SubResource( 7 )
-anims/channel_fire = SubResource( 2 )
-anims/dead = SubResource( 11 )
-anims/idle = SubResource( 4 )
-anims/rage = SubResource( 3 )
+anims/channel_fire = SubResource( 8 )
+anims/dead = SubResource( 9 )
+anims/idle = SubResource( 10 )
+anims/rage = SubResource( 11 )
 
 [node name="HealthManager" parent="." instance=ExtResource( 4 )]
 max_hp = 50
 
 [node name="HatSpawnPoint" type="Node2D" parent="."]
 position = Vector2( 13.7268, 4.57558 )
+
+[node name="DeathPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+attenuation = 0.659754
+
+[node name="ChannelDarknessPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+
+[node name="ChannelFirePlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+volume_db = -5.0
+
+[node name="SpotPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+volume_db = 5.0
+
+[node name="AngryPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )

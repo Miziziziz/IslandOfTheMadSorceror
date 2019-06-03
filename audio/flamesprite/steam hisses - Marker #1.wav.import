@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/steam hisses - Marker #1.wav-8adfc0b374b2a8fc2c4032840f49cd01.sample"
+
+[deps]
+
+source_file="res://audio/flamesprite/steam hisses - Marker #1.wav"
+dest_files=[ "res://.import/steam hisses - Marker #1.wav-8adfc0b374b2a8fc2c4032840f49cd01.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

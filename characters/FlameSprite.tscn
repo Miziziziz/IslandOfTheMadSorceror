@@ -1,13 +1,15 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://characters/FlameSprite.gd" type="Script" id=1]
 [ext_resource path="res://water/16x16noise.png" type="Texture" id=2]
 [ext_resource path="res://characters/fire_sprite.png" type="Texture" id=3]
+[ext_resource path="res://audio/sorceror/flame.wav" type="AudioStream" id=4]
+[ext_resource path="res://audio/flamesprite/steam hisses - Marker #1.wav" type="AudioStream" id=5]
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=7]
 radius = 3.0
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
 
 uniform float dissolve_amnt = 1.0;
@@ -23,9 +25,9 @@ void fragment() {
 	COLOR = col;
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
-shader = SubResource( 1 )
+shader = SubResource( 2 )
 shader_param/dissolve_amnt = 1.0
 shader_param/dissolve_txt = ExtResource( 2 )
 shader_param/dist_txt = ExtResource( 2 )
@@ -124,10 +126,10 @@ collision_layer = 3
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
+shape = SubResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 2 )
+material = SubResource( 3 )
 position = Vector2( -1.30132, -4.08693 )
 texture = ExtResource( 3 )
 
@@ -136,3 +138,11 @@ autoplay = "idle"
 anims/death = SubResource( 4 )
 anims/hop = SubResource( 5 )
 anims/idle = SubResource( 6 )
+
+[node name="FwooshPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
+attenuation = 0.116629
+
+[node name="HissPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )

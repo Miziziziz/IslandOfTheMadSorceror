@@ -20,6 +20,10 @@ var has_key = false
 
 onready var anim_player = $AnimationPlayer
 onready var slash_player = $SlashPlayer
+onready var death_player = $DeathPlayer
+onready var hurt_player = $HurtPlayer
+onready var roll_player = $RollPlayer
+
 var facing_right = true
 
 func _ready():
@@ -47,12 +51,13 @@ func _process(_delta):
 	update_attack_input()
 
 func _physics_process(_delta):
-	if cur_state == States.NORMAL:
+	if cur_state == States.NORMAL or cur_state == States.ATTACKING:
 		if Input.is_action_just_pressed("roll") and OS.get_ticks_msec() / 1000.0 - time_stopped_rolling > roll_rest_time:
 			cur_state = States.ROLLING
 			roll_start_time = OS.get_ticks_msec() / 1000.0
-		else:
-			process_movement()
+			
+	if cur_state == States.NORMAL:
+		process_movement()
 	elif cur_state == States.ROLLING:
 		process_rolling()
 
@@ -154,13 +159,19 @@ func hit(dir):
 	if cur_state == States.ROLLING:
 		return
 	$HealthManager.hit(dir)
+	if cur_state != States.DEAD:
+		hurt_player.play()
 
 func heal():
-	return $HealthManager.heal()
+	var did_heal = $HealthManager.heal()
+	if did_heal:
+		$HealPlayer.play()
+	return did_heal
 
 func give_key():
 	has_key = true
 	$PlayerUI/KeyGraphics.show()
+	$KeyPlayer.play()
 
 func remove_key():
 	has_key = false
@@ -176,6 +187,7 @@ func die():
 	bs.show()
 	bs.one_shot = false
 	bs.emitting = true
+	death_player.play()
 
 func restart():
 	get_tree().reload_current_scene()

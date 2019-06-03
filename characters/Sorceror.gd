@@ -14,10 +14,18 @@ var player = null
 
 var facing_right = false
 
+signal dead
+
 var hat = preload("res://characters/Hat.tscn")
 var darkness_spell = preload("res://characters/DarknessSpell.tscn")
 var fire_spell = preload("res://characters/FireSpell.tscn")
 var key = preload("res://items/Key.tscn")
+
+onready var death_player = $DeathPlayer
+onready var channel_fire_player = $ChannelFirePlayer
+onready var channel_darkness_player = $ChannelDarknessPlayer
+onready var angry_player = $AngryPlayer
+onready var spot_player = $SpotPlayer
 
 var start_phase_logic = {
 	"idle_time": 1.0,
@@ -56,6 +64,7 @@ func _process(delta):
 
 func switch_to_start_phase():
 	get_tree().call_group("boss_ui", "init", "Madduk the Mad Sorceror")
+	spot_player.play()
 	combat_state_time = 0
 	combat_state_pattern_ind = 0
 	cur_main_state = MainStates.START_PHASE
@@ -67,6 +76,7 @@ func switch_to_end_phase():
 	cur_main_state = MainStates.END_PHASE
 	cur_combat_state = CombatStates.IDLE
 	anim_player.play("rage")
+	angry_player.play()
 	var hat_inst = hat.instance()
 	get_parent().add_child(hat_inst)
 	hat_inst.global_position = $HatSpawnPoint.global_position
@@ -80,7 +90,9 @@ func switch_to_dead_state():
 	var key_inst = key.instance()
 	get_tree().get_root().add_child(key_inst)
 	key_inst.global_position = global_position
-
+	death_player.play()
+	emit_signal("dead")
+	
 func process_start_phase():
 	flip_if_needed(player.global_position - global_position)
 	if cur_combat_state == CombatStates.IDLE:
@@ -90,9 +102,11 @@ func process_start_phase():
 			if action == "fire":
 				cur_combat_state = CombatStates.CASTING_FIRE
 				anim_player.play("channel_fire")
+				channel_fire_player.play()
 			else:
 				cur_combat_state = CombatStates.CASTING_SHADOW
 				anim_player.play("channel_darkness")
+				channel_darkness_player.play()
 				
 	elif cur_combat_state == CombatStates.CASTING_FIRE:
 		if combat_state_time > start_phase_logic["fire_cast_time"]:
@@ -121,11 +135,13 @@ func process_end_phase():
 			combat_state_time = 0
 			cur_combat_state = CombatStates.IDLE
 			anim_player.play("rage")
+			angry_player.play()
 	elif cur_combat_state == CombatStates.CASTING_SHADOW:
 		if combat_state_time > end_phase_logic["darkness_cast_time"]:
 			combat_state_time = 0
 			cur_combat_state = CombatStates.IDLE
 			anim_player.play("rage")
+			angry_player.play()
 
 func get_next_action(phase_logic):
 	var pattern = phase_logic["pattern"]

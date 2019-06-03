@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Hollywood_Traffic_Jam.ogg-f869ac735d60dedc07b74b3e19933fec.oggstr"
+
+[deps]
+
+source_file="res://audio/music/Hollywood_Traffic_Jam.ogg"
+dest_files=[ "res://.import/Hollywood_Traffic_Jam.ogg-f869ac735d60dedc07b74b3e19933fec.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -14,6 +14,9 @@ var facing_right = false
 var hop_dir = Vector2()
 var move_speed = 50
 
+onready var fwoosh_player = $FwooshPlayer
+onready var hiss_player = $HissPlayer
+
 func _process(delta):
 	if can_attack and player_is_in_attack_range():
 		attack()
@@ -39,6 +42,7 @@ func hop():
 	hop_dir = move_vec
 	$AnimationPlayer.play("hop")
 	can_attack = true
+	fwoosh_player.play()
 
 func complete_hop():
 	cur_state = States.IDLE
@@ -58,3 +62,4 @@ func hit(dir):
 	$AnimationPlayer.play("death")
 	$CollisionShape2D.disabled = true
 	cur_state = States.DEAD
+	hiss_player.play()

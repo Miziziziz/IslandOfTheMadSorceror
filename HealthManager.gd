@@ -4,7 +4,7 @@ export var max_hp = 5
 var hp = max_hp
 
 var blood_splatter = preload("res://BloodSplatter.tscn")
-
+onready var splat_player = $SplatPlayer
 signal dead
 signal hit
 signal heal
@@ -22,6 +22,7 @@ func hit(dir: Vector2):
 	bs.emitting = true
 	bs.get_node("Particles2D").emitting = true
 	hp -= 1
+	splat_player.play()
 	if hp <= 0:
 		emit_signal("dead")
 

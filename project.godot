@@ -19,6 +19,10 @@ config/name="4devs1art"
 run/main_scene="res://walls/World.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/fullscreen=true
+
 [input]
 
 move_up={

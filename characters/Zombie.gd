@@ -5,6 +5,8 @@ var cur_state = States.IDLE
 var player = null
 
 onready var anim_player = $AnimationPlayer
+onready var death_player = $DeathPlayer
+onready var spot_player = $SpotPlayer
 
 var spot_player_range = 150
 var attack_range = 20
@@ -33,6 +35,7 @@ func switch_to_idle_state():
 func switch_to_chase_state():
 	cur_state = States.CHASING
 	anim_player.play("walk")
+	spot_player.play()
 
 func switch_to_attack_state():
 	cur_state = States.ATTACKING
@@ -103,3 +106,4 @@ func hit(dir):
 	get_tree().get_root().add_child(fs)
 	fs.global_position = global_position
 	fs.player = player
+	death_player.play()

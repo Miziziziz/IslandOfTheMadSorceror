@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Desert_Caravan.ogg-a6ef52fd67a27b629bcf4818cdd42e6f.oggstr"
+
+[deps]
+
+source_file="res://audio/music/Desert_Caravan.ogg"
+dest_files=[ "res://.import/Desert_Caravan.ogg-a6ef52fd67a27b629bcf4818cdd42e6f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
