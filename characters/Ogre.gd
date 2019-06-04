@@ -90,7 +90,7 @@ func process_attack_state():
 	elif attack_timer > attack_time and attack_timer < attack_time + rest_time:
 		if anim_player.current_animation != "idle":
 			anim_player.play("idle")
-		if attack_timer > attack_time + rest_time - 0.5 and not growled_this_iter:
+		if attack_timer > attack_time + rest_time - 0.7 and not growled_this_iter:
 			growled_this_iter = true
 			attack_warn_player.play()
 		set_bludgeon_rest_pos()

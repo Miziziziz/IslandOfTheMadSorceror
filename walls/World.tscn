@@ -242,10 +242,25 @@ tile_data = PoolIntArray( -4784057, 16, 0, -4784056, 16, 0, -4784055, 16, 3, -47
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 5 )]
-position = Vector2( 630, 374 )
+position = Vector2( 638.952, 373 )
 
 [node name="Zombie" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 622, 162.594 )
+
+[node name="Zombie24" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 863, -310 )
+
+[node name="Zombie25" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 925, -307 )
+
+[node name="Zombie26" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 934, -297 )
+
+[node name="Zombie27" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 859, -291 )
+
+[node name="Zombie28" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 842, -308 )
 
 [node name="Zombie8" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 1166, -520 )
